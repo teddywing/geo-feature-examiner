@@ -7,10 +7,14 @@
 	<link rel="stylesheet" href="https://openlayers.org/en/v4.1.0/css/ol.css" type="text/css">
 </head>
 <body>
+	<textarea class="js-selected-feature"></textarea>
+
 	<div id="map"></div>
 
 	<script src="https://openlayers.org/en/v4.1.0/build/ol.js"></script>
 	<script>
+		var output_el = document.getElementsByClassName('js-selected-feature')[0];
+
 		var raster = new ol.layer.Tile({
 			source: new ol.source.OSM()
 		});
@@ -47,6 +51,7 @@
 		select_click.on('select', function(e) {
 			if (e.selected.length) {
 				var feature = e.selected[0];
+				output_el.textContent = format.writeFeature(feature);
 			}
 		});
 

@@ -30,6 +30,13 @@
 
 		var format = new ol.format.WKT();
 
+		var vector_style = new ol.style.Style({
+			stroke: new ol.style.Stroke({
+				color: '#0091ff',
+				width: 5
+			})
+		});
+
 		var map = new ol.Map({
 			layers: [raster],
 			target: 'map',
@@ -72,8 +79,9 @@
 			wkt_layer = new ol.layer.Vector({
 				source: new ol.source.Vector({
 					features: wkt_features
-				})
-			})
+				}),
+				style: vector_style
+			});
 			map.addLayer(wkt_layer);
 		};
 	</script>

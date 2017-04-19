@@ -44,7 +44,13 @@
 
 		map.addInteraction(select_click);
 
+		var wkt_layer;
 		input_el.onblur = function(e) {
+			// Remove old WKT layer
+			if (wkt_layer) {
+				map.removeLayer(wkt_layer);
+			}
+
 			var wkt_features = e.target.value.split('\n');
 			wkt_features = wkt_features.map(function(wkt) {
 				return format.readFeature(wkt, {
@@ -53,13 +59,12 @@
 				});
 			});
 
-			map.addLayer(
-				new ol.layer.Vector({
-					source: new ol.source.Vector({
-						features: wkt_features
-					})
+			wkt_layer = new ol.layer.Vector({
+				source: new ol.source.Vector({
+					features: wkt_features
 				})
-			);
+			})
+			map.addLayer(wkt_layer);
 		};
 	</script>
 </body>
